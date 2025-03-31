@@ -1,9 +1,9 @@
 :root {
-  --color1: #030AA4;
+  --color1: #33ff5b;
   --color2: #07070C;
-  --color3: #E3A410;
+  --color3: #0517f2;
   --color4: #65FA05;
-  --color5: #00EBF0;
+  --color5: #f79412;
   --color-blanco: #FFFFFF;
   --color-negro: #000000;
   --color-gris-claro: #CCCCCC;
@@ -24,7 +24,7 @@ h2 {
   font-weight: 200;
   font-size: 48px;
   letter-spacing: -2px;
-  text-transform: lowercase;
+  text-transform: uppercase;
 }
 
 h3 {
@@ -32,7 +32,18 @@ h3 {
   font-size: 20px;
   text-transform: uppercase;
 }
-
+h5 {
+  font-weight: 850;
+  font-size: 20px;
+  text-transform: uppercase;
+  color: var(--color3);
+}
+h6 {
+  font-weight: 250;
+  font-size: 20px;
+  text-transform: uppercase;
+  color: var(--color3);
+}
 #page-header {
   background-color: var(--color-gris-claro);
   padding: 15px 0;
@@ -195,4 +206,18 @@ h3 {
   100% {
     transform: rotate(360deg);
   }
+
+}
+
+#main-header{
+  background-color: var(--color4);
+  color: var(--color-black);
+}
+
+#main-header p{
+  margin-bottom: 0;
+}
+
+.carousel-item p {
+  color: var(--color2);
 }

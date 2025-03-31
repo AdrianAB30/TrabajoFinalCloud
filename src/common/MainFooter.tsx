@@ -3,7 +3,7 @@ function MainFooter() {
     return (
         <footer id="main-footer">
             <div className="container">
-                2023 - Tecsup, todos los derechos reservados.
+                2025 - Adrian, el senior mas gozu de todos.
             </div>
         </footer>
     )
