@@ -1,36 +1,61 @@
-import {Unity, useUnityContext} from "react-unity-webgl";
+import { useState } from "react";
+import { Unity, useUnityContext } from "react-unity-webgl";
 
 function Game2() {
   const { unityProvider, sendMessage } = useUnityContext({
+    loaderUrl: "/Cartas.loader.js",
+    dataUrl: "/Cartas.data",
+    frameworkUrl: "/Cartas.framework.js",
+    codeUrl: "/Cartas.wasm",
+  });
 
-        loaderUrl: "/Juego Cartas Gozu.loader.js",
-        dataUrl: "/Juego Cartas Gozu.data",
-        frameworkUrl: "/Juego Cartas Gozu.framework.js",
-        codeUrl: "/Juego Cartas Gozu.wasm",
-    });
+  const [nombre, setNombre] = useState("");
 
-
-    function handleSceneRestart(){
-      sendMessage("MenuManager", "ReloadScene")
+  function handleSceneRestart() {
+    sendMessage("MenuManager", "ReloadScene");
   }
 
-    return (
-        <>
-            <div className="centered-container">
-                <div className="centered-content">
-                    <h1 className="centered-title">React + Unity / Tecsup</h1>
-                    <Unity unityProvider={unityProvider} className="centered-unity" />
+  function handleSubmit() {
 
-                    <div className="centered-content">
-                        <button onClick={handleSceneRestart}>Restart Game</button>
-                    </div>
+    sendMessage("MenuManager", "RecibirNombre", nombre); 
+  }
 
-                </div>
-            </div>
+  return (
+    <>
+      <div className="centered-container">
+        <div className="centered-content">
+          <h1 className="centered-title">React + Unity / Tecsup</h1>
 
-        </>
-    );
+          <Unity unityProvider={unityProvider} className="centered-unity" />
+
+          <div className="centered-content" style={{ marginTop: "20px" }}>
+            <input
+              type="text"
+              placeholder="Escribe tu nombre"
+              value={nombre}
+              onChange={(e) => setNombre(e.target.value)}
+              style={{ padding: "10px", fontSize: "16px" }}
+            />
+
+            <button
+              onClick={handleSubmit}
+              style={{
+                padding: "10px 20px",
+                marginLeft: "10px",
+                fontSize: "16px",
+                cursor: "pointer",
+              }}
+            >
+              Submit
+            </button>
+          </div>
+          <div className="centered-content" style={{ marginTop: "20px" }}>
+            <button onClick={handleSceneRestart}>Restart Game</button>
+          </div>
+        </div>
+      </div>
+    </>
+  );
 }
 
-
-export default Game2
+export default Game2;
