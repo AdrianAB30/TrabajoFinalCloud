@@ -3,10 +3,10 @@ import {Unity, useUnityContext} from "react-unity-webgl";
 function Game3() {
   const { unityProvider} = useUnityContext({
 
-        loaderUrl: "/Tercer Juego Cloud.loader.js",
-        dataUrl: "/Tercer Juego Cloud.data",
-        frameworkUrl: "/Tercer Juego Cloud.framework.js",
-        codeUrl: "/Tercer Juego Cloud.wasm",
+        loaderUrl: "/Juego 3.loader.js",
+        dataUrl: "/Juego 3.data",
+        frameworkUrl: "/Juego 3.framework.js",
+        codeUrl: "/Juego 3.wasm",
     });
     return (
         <>

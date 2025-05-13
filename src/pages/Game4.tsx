@@ -1,9 +1,28 @@
+import {Unity, useUnityContext} from "react-unity-webgl";
+
 function Game4() {
+  const { unityProvider} = useUnityContext({
+
+        loaderUrl: "/Juego 4.loader.js",
+        dataUrl: "/Juego 4.data",
+        frameworkUrl: "/Juego 4.framework.js",
+        codeUrl: "/Juego 4.wasm",
+    });
     return (
-      <div>
-        <h1>Game 3</h1>
-        <p>This is the fourth game.</p>
-      </div>
+        <>
+            <div className="centered-container">
+                <div className="centered-content">
+                    <h1 className="centered-title">React + Unity / Tecsup</h1>
+                    <Unity unityProvider={unityProvider} className="centered-unity" />
+
+                    <div className="centered-content">
+                    </div>
+
+                </div>
+            </div>
+
+        </>
     );
-  }
-  export default Game4;
+}
+
+export default Game4

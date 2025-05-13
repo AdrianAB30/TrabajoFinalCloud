@@ -3,10 +3,10 @@ import { Unity, useUnityContext } from "react-unity-webgl";
 
 function Game2() {
   const { unityProvider, sendMessage } = useUnityContext({
-    loaderUrl: "/Cartas.loader.js",
-    dataUrl: "/Cartas.data",
-    frameworkUrl: "/Cartas.framework.js",
-    codeUrl: "/Cartas.wasm",
+    loaderUrl: "/Juego2.loader.js",
+    dataUrl: "/Juego2.data",
+    frameworkUrl: "/Juego2.framework.js",
+    codeUrl: "/Juego2.wasm",
   });
 
   const [nombre, setNombre] = useState("");
