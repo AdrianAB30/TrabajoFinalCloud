@@ -1,76 +1,59 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState} from "react";
 import { Unity, useUnityContext } from "react-unity-webgl";
 
-function Game2() {
-    const [isGameOver, setIsGameOver] = useState<boolean>(true);
-    const [userName, setUserName] = useState<string | undefined>();
-    const [score, setScore] = useState<number | undefined>();
-    const [nombre, setName] = useState<string>("");
+function Game5() {
+  const { unityProvider, sendMessage} = useUnityContext({
+    loaderUrl: "/Juego 5.loader.js",
+    dataUrl: "/Juego 5.data",
+    frameworkUrl: "/Juego 5.framework.js",
+    codeUrl: "/Juego 5.wasm",
+  });
 
-    const { unityProvider, addEventListener, removeEventListener, sendMessage } =
-        useUnityContext({
-            loaderUrl: "Juego 5.loader.js",
-            dataUrl: "Juego 5.data",
-            frameworkUrl: "Juego 5.framework.js",
-            codeUrl: "Juego 5.wasm",
-        });
+  const [nombre, setNombre] = useState("");
 
-    const handleGameOver = useCallback((...params: any[]) => {
-        const [userName, score] = params;
-        setIsGameOver(true);
-        setUserName(userName);
-        setScore(Number(score));
-        console.log("GameOver event params:", params);
-    }, []);
+  function handleSceneRestart() {
+    sendMessage("MenuManager", "ReloadScene");
+  }
 
-    useEffect(() => {
-        addEventListener("GameOver", handleGameOver);
-        return () => {
-            removeEventListener("GameOver", handleGameOver);
-        };
-    }, [handleGameOver]);
+  function handleSubmit() {
+    sendMessage("MenuManager", "RecibirNombre", nombre);
+  }
+  return (
+    <div className="centered-container">
+      <div className="centered-content">
+        <h1 className="centered-title">React + Unity / Tecsup</h1>
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setName(e.target.value);
-    };
+        <Unity unityProvider={unityProvider} className="centered-unity" tabIndex={1} />
 
-    const sendName = () => {
-        sendMessage("MenuManager", "RecibirNombre", nombre);
-    };
+        <div className="centered-content" style={{ marginTop: "20px" }}>
+          <input
+            type="text"
+            placeholder="Escribe tu nombre"
+            value={nombre}
+            onChange={(e) => setNombre(e.target.value)}
+            tabIndex={2}
+            style={{ padding: "10px", fontSize: "16px" }}
+          />
 
-    const resetScene = () => {
-        sendMessage("MenuManager", "ReloadScene");
-        setIsGameOver(false);
-        setScore(undefined);
-        setUserName(undefined);
-    };
-
-    return (
-        <div className="centered-container">
-            <div className="centered-content">
-                <h1 className="centered-title">React + Unity / Tecsup</h1>
-                <Unity unityProvider={unityProvider} className="centered-unity" tabIndex={1} />
-                <div className="input-container" style={{ marginTop: "10px" }}>
-                    <input
-                        type="text"
-                        value={nombre}
-                        onChange={handleInputChange}
-                        placeholder="Escribe tu nombre"
-                        style={{ padding: "5px", marginRight: "5px" }}
-                    />
-                    <button onClick={sendName} style={{ padding: "5px", marginRight: "5px" }}>
-                        Enviar Nombre
-                    </button>
-                    <button onClick={resetScene} style={{ padding: "5px" }}>
-                        Reiniciar Juego
-                    </button>
-                </div>
-                {isGameOver && (
-                    <p>{`Game Over ${userName}! Has conseguido ${score} puntos.`}</p>
-                )}
-            </div>
+          <button
+            onClick={handleSubmit}
+            style={{
+              padding: "10px 20px",
+              marginLeft: "10px",
+              fontSize: "16px",
+              cursor: "pointer",
+            }}
+          >
+            Submit
+          </button>
         </div>
-    );
+
+        <div className="centered-content" style={{ marginTop: "20px" }}>
+          <button onClick={handleSceneRestart}>Restart Game</button>
+        </div>
+      </div>
+    </div>
+  );
 }
 
-export default Game2;
+export default Game5;
